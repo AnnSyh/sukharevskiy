@@ -23,19 +23,39 @@ function SoсialLinks() {
         minWidth: "220px",
       }}
     >
-      <a href="https://twitter.com/" target="_blank" color="inherit">
+      <a
+        href="https://twitter.com/"
+        target="_blank"
+        color="inherit"
+        rel="noreferrer"
+      >
         <TwitterIcon />
         {/* twitter */}
       </a>
-      <a href="https://telegram.me/" target="_blank" color="inherit">
+      <a
+        href="https://telegram.me/"
+        target="_blank"
+        color="inherit"
+        rel="noreferrer"
+      >
         <TelegramIcon />
         {/* telegram */}
       </a>
-      <a href="https://www.facebook.com/" target="_blank" color="inherit">
+      <a
+        href="https://www.facebook.com/"
+        target="_blank"
+        color="inherit"
+        rel="noreferrer"
+      >
         <FacebookIcon />
         {/* facebook */}
       </a>
-      <a href="https://www.vk.com/" target="_blank" color="inherit">
+      <a
+        href="https://www.vk.com/"
+        target="_blank"
+        color="inherit"
+        rel="noreferrer"
+      >
         <Box sx={{ fontSize: "23px" }}>{/* <FaVk /> */}</Box>
         {/* vk */}
       </a>
