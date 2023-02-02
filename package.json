@@ -1,0 +1,33 @@
+{
+  "name": "sukharevskiy",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fancyapps/ui": "^4.0.31",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.6",
+    "@mui/material-next": "^6.0.0-alpha.72",
+    "@next/font": "13.1.5",
+    "eslint": "8.32.0",
+    "eslint-config-next": "13.1.5",
+    "formik": "^2.2.9",
+    "fs": "^0.0.1-security",
+    "i18next": "^22.4.9",
+    "next": "13.1.5",
+    "next-i18next": "^13.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-i18next": "^12.1.4",
+    "react-phone-input-2": "^2.15.1",
+    "react-scripts": "^5.0.1",
+    "yup": "^0.32.11"
+  }
+}
