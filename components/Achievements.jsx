@@ -1,21 +1,19 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import Link from "next/link";
 
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Container from "@mui/material/Container";
+import { styled } from "@mui/material/styles";
 
-import Typography from "../components/Typography";
 import { Inter } from "@next/font/google";
+import Typography from "../components/Typography";
 
 import Fancybox from "../components/Fancybox";
 
-import styles from "../styles/Home.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: [ "latin" ] });
 const ImageBackdrop = styled("div")(({ theme }) => ({
   position: "absolute",
   left: 0,
@@ -33,7 +31,7 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
   padding: 0,
   borderRadius: 0,
   height: "40vh",
-  [theme.breakpoints.down("md")]: {
+  [ theme.breakpoints.down("md") ]: {
     width: "100% !important",
     height: 100,
   },
@@ -51,7 +49,7 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
   },
   "& .imageTitle": {
     position: "relative",
-    padding: `${theme.spacing(2)} ${theme.spacing(4)} 14px`,
+    padding: `${ theme.spacing(2) } ${ theme.spacing(4) } 14px`,
   },
   "& .imageMarked": {
     height: 3,
@@ -122,19 +120,22 @@ const items = [
   },
 ];
 
-export default function Achievements() {
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
+export default function Achievements({ sx })
+{
+  const [ open, setOpen ] = useState(false);
+  const handleClickOpen = () =>
+  {
     // console.log("handleClickOpen setOpen = ", open);
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = () =>
+  {
     setOpen(false);
   };
 
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ mt: 8, mb: 4, ...sx }}>
       {/* <Link href="/questions" className={styles.card}>
         <Box sx={{ width: "255px", margin: "auto" }}>
           <h2 className={inter.className} align="center">
@@ -166,10 +167,10 @@ export default function Achievements() {
                   bottom: 0,
                   backgroundSize: "cover",
                   backgroundPosition: "center 40%",
-                  backgroundImage: `url(${image.url})`,
+                  backgroundImage: `url(${ image.url })`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
-                  backgroundColor: `${image.bgcolor}`,
+                  backgroundColor: `${ image.bgcolor }`,
                 }}
               />
               <ImageBackdrop className="imageBackdrop" />

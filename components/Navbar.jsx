@@ -1,39 +1,26 @@
-import React, { useState } from "react";
-import Image from "next/image";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import
+{
+  AppBar, IconButton, Toolbar, Typography
+} from "@mui/material";
+import Image from "next/image";
+import React from "react";
 // import Search from "./Search";
-// import Link from "next/link";
-import { useRouter } from "next/router";
+import { Box } from "@mui/system";
 
+import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
+import { FormControlSelect } from "../sections/FormSection/FormControlSelect";
+import Menu from "../sections/menu/Menu";
 import styles from "../styles/menu.module.css";
 
-import { Box } from "@mui/system";
-import Menu from "../sections/menu/Menu";
-import { FormControlSelect } from "../sections/FormSection/FormControlSelect";
-// import { useTranslation } from "next-i18next";
-import { NoEncryption } from "@mui/icons-material";
 
-const nav = [
-  { id: 1, title: `homepage`, path: "/" },
-  { id: 2, title: `portfolio`, path: "/portfolio" },
-  { id: 3, title: `articles`, path: "/articles" },
-  { id: 4, title: `questions`, path: "/questions" },
-  { id: 5, title: `contacts`, path: "/contacts" },
-];
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-function Navbar({ onMenuIconClick, close, isOpen, languageToggle, sx }) {
-  // const { t } = useTranslation("common");
+function Navbar({ onMenuIconClick, close, isOpen, languageToggle, sx })
+{
+  const { t } = useTranslation("common");
   // const { pathname } = useRouter(); //подсвечиваем акт ссылку
   // console.log("pathname = ", pathname);
 
@@ -69,9 +56,9 @@ function Navbar({ onMenuIconClick, close, isOpen, languageToggle, sx }) {
         <Typography
           variant="h5"
           component="div"
-          sx={{ flexGrow: 1, fontSize: "15px" }}
+          sx={{ flexGrow: 1, fontSize: "15px", color: "#fff" }}
         >
-          Портфолио Сухаревского Ивана Ивановича
+          {t("portfolio_of")}
         </Typography>
         {/* select для выбора языка */}
         <FormControlSelect
@@ -100,7 +87,7 @@ function Navbar({ onMenuIconClick, close, isOpen, languageToggle, sx }) {
             component="div"
             sx={{ flexGrow: 1, fontSize: "15px", marginRight: "15px" }}
           >
-            студента
+            {t("student")}
           </Typography>
           <Image
             src="/mgua.svg"
@@ -110,20 +97,14 @@ function Navbar({ onMenuIconClick, close, isOpen, languageToggle, sx }) {
             height={60}
             priority
           />
-          {/* {nav.map((item, index, path) => (
-            <ListItem key={index} disablePadding>
-              <ListItemButton
-                component="a"
-                href={item.path}
-                className={pathname === item.path ? styles.active : styles.link}
-              >
-                {item.title}
-              </ListItemButton>
-            </ListItem>
-          ))} */}
         </Box>
       </Toolbar>
     </AppBar>
   );
 }
 export default Navbar;
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [ "common" ])),
+  },
+});

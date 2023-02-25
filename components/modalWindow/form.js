@@ -1,15 +1,14 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-import { CardMedia, CardContent } from "@mui/material";
-// import { useTranslation } from "next-i18next";
-
+import { CardContent } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import * as React from "react";
 import { FormMy } from "../../sections/FormSection/FormMy";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
@@ -26,7 +25,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
+const BootstrapDialogTitle = (props) =>
+{
   const { children, onClose, ...other } = props;
 
   return (
@@ -40,7 +40,7 @@ const BootstrapDialogTitle = (props) => {
             position: "absolute",
             right: 8,
             top: 8,
-            color: (theme) => theme.palette.grey[500],
+            color: (theme) => theme.palette.grey[ 500 ],
           }}
         >
           <CloseIcon />
@@ -55,9 +55,11 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function ModalWindow({ open, handleClose }) {
-  // const { t } = useTranslation("common");
+export default function ModalWindow({ open, handleClose })
+{
+  const { t } = useTranslation("common");
   // console.log("project = ", project);
+  const router = useRouter();
 
   return (
     <div>
@@ -77,7 +79,7 @@ export default function ModalWindow({ open, handleClose }) {
           onClose={handleClose}
           sx={{ textAlign: "center" }}
         >
-          subscription_form
+          {t("subscription_form")}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <CardContent>

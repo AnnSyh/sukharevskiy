@@ -1,35 +1,39 @@
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import Achievements from "../components/Achievements";
-// import Fancybox from "../components/Fancybox";
-
 import { Box } from "@mui/material";
+import { Inter } from "@next/font/google";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Head from "next/head";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import { Footer } from "../footer/Footer";
+import { AccordionPortfolio } from "../sections/accordionSection/AccordionPortfolio";
 
-import styles from "../styles/Home.module.css";
+const inter = Inter({ subsets: [ "latin" ] });
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const [header, setHeader] = useState("headerColor");
+export default function Home()
+{
+  const { t } = useTranslation("common");
+  const [ isMenuOpen, setMenuOpen ] = useState(false);
+  const [ header, setHeader ] = useState("headerColor");
 
   const closeMenu = () => setMenuOpen(false);
   const openMenu = () => setMenuOpen(true);
 
-  const listenScrollEvent = (event) => {
+  const listenScrollEvent = (event) =>
+  {
     const bgColorChanged = 373;
 
-    if (window.scrollY < bgColorChanged) {
+    if (window.scrollY < bgColorChanged)
+    {
       return setHeader("headerColor");
-    } else if (window.scrollY > bgColorChanged) {
+    } else if (window.scrollY > bgColorChanged)
+    {
       return setHeader("headerColor2");
     }
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     window.addEventListener("scroll", listenScrollEvent);
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
@@ -56,31 +60,32 @@ export default function Home() {
         />
       </Box>
 
-      <main className={styles.main}>
-        <div className={styles.center}>portfolio</div>
-        <Achievements />
-        {/* <Fancybox options={{ dragToClose: false }}>
-          <p>
-            <a data-fancybox="gallery" href="https://lipsum.app/id/33/1024x768">
-              <img alt="" src="https://lipsum.app/id/33/200x150" />
-            </a>
+      <Box component='main'
+        className='main'
+        sx={{ paddingBottom: '0px !important' }}
+      >
+        <h2 className={inter.className} align="center">
+          {/* Статьи  */}
+          {/* {t("welcome")} */}
+          {t("portfolio")}
+        </h2>
 
-            <a data-fancybox="gallery" href="https://lipsum.app/id/34/1024x768">
-              <img alt="" src="https://lipsum.app/id/34/200x150" />
-            </a>
+        <AccordionPortfolio />
 
-            <a data-fancybox="gallery" href="https://lipsum.app/id/35/1024x768">
-              <img alt="" src="https://lipsum.app/id/35/200x150" />
-            </a>
+        <Footer sx={{
+          backgroundColor: "rgba(0, 179, 152, 1)",
+          marginLeft: '-6rem',
+          marginRight: '-6rem',
+          width: 'calc(100% + 12rem)'
+        }} />
+        {/* <TopArrow /> */}
 
-            <a data-fancybox="gallery" href="https://lipsum.app/id/36/1024x768">
-              <img alt="" src="https://lipsum.app/id/36/200x150" />
-            </a>
-          </p>
-        </Fancybox> */}
-
-        <div className={styles.grid}>ffff</div>
-      </main>
+      </Box>
     </>
   );
 }
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [ "common" ])),
+  },
+});

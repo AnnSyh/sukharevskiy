@@ -1,40 +1,58 @@
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { Inter } from "@next/font/google";
-
 import { Box } from "@mui/material";
-
-import Navbar from "../components/Navbar";
+import { Inter } from "@next/font/google";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import Achievements from "../components/Achievements";
-
+import Navbar from "../components/Navbar";
+import { Footer } from "../footer/Footer";
 import styles from "../styles/Home.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: [ "latin" ] });
 
-export default function Home() {
-  const [isMenuOpen, setMenuOpen] = useState(false);
-  const [header, setHeader] = useState("headerColor");
+export default function Home()
+{
+  const { t } = useTranslation("common");
+  const [ isMenuOpen, setMenuOpen ] = useState(false);
+  const [ header, setHeader ] = useState("headerColor");
 
   const closeMenu = () => setMenuOpen(false);
   const openMenu = () => setMenuOpen(true);
 
-  const listenScrollEvent = (event) => {
+  const listenScrollEvent = (event) =>
+  {
     const bgColorChanged = 373;
 
-    if (window.scrollY < bgColorChanged) {
+    if (window.scrollY < bgColorChanged)
+    {
       return setHeader("headerColor");
-    } else if (window.scrollY > bgColorChanged) {
+    } else if (window.scrollY > bgColorChanged)
+    {
       return setHeader("headerColor2");
     }
   };
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     window.addEventListener("scroll", listenScrollEvent);
 
     return () => window.removeEventListener("scroll", listenScrollEvent);
   }, []);
+
+  const router = useRouter();
+  const { locale } = router;
+
+  const handelLanguageToggle = (newLocale) =>
+  {
+    const { pathname, asPath, query } = router;
+    router.push({ pathname, query }, asPath, { locale: newLocale });
+  };
+
+  const changeTo = router.locale === "ru" ? "en" : "ru";
+
 
   return (
     <>
@@ -57,58 +75,59 @@ export default function Home() {
         />
       </Box>
 
-      <main className={styles.main}>
+      <Box component='main' className='main' >
         <div className={styles.grid}>
           <Link href="/portfolio" className={styles.card}>
             <h2 className={inter.className}>
-              Портфолио <span>-&gt;</span>
+              {t("portfolio")} <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              информация о моей профессиональной деятельности
+              {t("portfolio_info")}
             </p>
           </Link>
 
           <Link href="/articles" className={styles.card}>
             <h2 className={inter.className}>
-              Мои статьи <span>-&gt;</span>
+              {t("my_articles")} <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Статьи на различные юридические темы
+              {t("my_articles_info")}
             </p>
           </Link>
 
           <Link href="/questions" className={styles.card}>
             <h2 className={inter.className}>
-              Вопросы <span>-&gt;</span>
+              {t("questions")} <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Здесь можно увидеть ответы на часто задаваемые вопросы
+              {t("questions_info")}
             </p>
           </Link>
-
-          <Link href="/contacts" className={styles.card}>
-            <h2 className={inter.className}>
-              Контакты <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Мои контакты
-              <br /> и форма связи
-            </p>
+          <Link href="/questions" className={styles.card}>
+            <Box sx={{ width: "255px", margin: "auto" }}>
+              <h2 className={inter.className} align="center">
+                {t("achievements")} <span>-&gt;</span>
+              </h2>
+              <p className={inter.className}>
+                {t("achievements_info")}
+              </p>
+            </Box>
           </Link>
         </div>
 
-        <Link href="/questions" className={styles.card}>
-          <Box sx={{ width: "255px", margin: "auto" }}>
-            <h2 className={inter.className} align="center">
-              Достижения <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Здесь можно увидеть сертификаты и ссылки на публикации
-            </p>
-          </Box>
-        </Link>
-        <Achievements />
-      </main>
+        <Achievements sx={{ mt: '0px' }} />
+        <Footer sx={{
+          backgroundColor: "rgba(0, 179, 152, 1)",
+          marginLeft: '-6rem',
+          marginRight: '-6rem',
+          width: 'calc(100% + 12rem)'
+        }} />
+      </Box>
     </>
   );
 }
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [ "common" ])),
+  },
+});

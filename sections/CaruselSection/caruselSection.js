@@ -1,78 +1,78 @@
-import { useState } from "react";
-import { Item } from "./item/item";
-import { Avatar, Box, Grid, Typography } from "@mui/material";
-import SwiperCore, { Virtual, Navigation, Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import { Box, Grid, Typography } from "@mui/material";
 import { useTranslation } from "next-i18next";
+import SwiperCore, { Navigation, Pagination, Virtual } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Item } from "./item/item";
 
-SwiperCore.use([Virtual, Navigation, Pagination]);
+SwiperCore.use([ Virtual, Navigation, Pagination ]);
 
-export const CaruselSection = ({}) => {
+export const CaruselSection = ({ }) =>
+{
   const { t } = useTranslation("common");
   // console.log("t=", t("welcome"));
   const items = [
     {
       id: 0,
-      desc: `${t("difficulty_accessing_stations")}`,
-      position: `${t("for_electric_car_owners")}`,
+      desc: `${ t("difficulty_accessing_stations") }`,
+      position: `${ t("for_electric_car_owners") }`,
       image: "./images/problems/car-1.png",
     },
     {
       id: 1,
-      desc: `${t("complexity_of_searching")}`,
-      position: `${t("for_electric_car_owners")}`,
+      desc: `${ t("complexity_of_searching") }`,
+      position: `${ t("for_electric_car_owners") }`,
       image: "./images/problems/car-2.png",
     },
     {
       id: 2,
-      desc: `${t("inability_communicate_with_other_owners")}`,
-      position: `${t("for_electric_car_owners")}`,
+      desc: `${ t("inability_communicate_with_other_owners") }`,
+      position: `${ t("for_electric_car_owners") }`,
       image: "./images/problems/car-3.png",
     },
     {
       id: 3,
-      desc: `${t("automated_payment")}`,
-      position: `${t("for_electric_car_owners")}`,
+      desc: `${ t("automated_payment") }`,
+      position: `${ t("for_electric_car_owners") }`,
       image: "./images/problems/car-4.png",
     },
     {
       id: 4,
-      desc: `${t("parking_spaces_for_charging_electric_vehicles")}`,
-      position: `${t("for_electric_car_owners")}`,
+      desc: `${ t("parking_spaces_for_charging_electric_vehicles") }`,
+      position: `${ t("for_electric_car_owners") }`,
       image: "./images/problems/car-5.png",
     },
     {
       // Для владельцев зарядных станций
       id: 5,
-      desc: `${t("stability_charging_stations")}`,
-      position: `${t("for_charging_stations_owners")}`,
+      desc: `${ t("stability_charging_stations") }`,
+      position: `${ t("for_charging_stations_owners") }`,
       image: "./images/problems/car-6.png",
     },
     {
       id: 6,
-      desc: `${t("monitoring_stability")}`,
-      position: `${t("for_charging_stations_owners")}`,
+      desc: `${ t("monitoring_stability") }`,
+      position: `${ t("for_charging_stations_owners") }`,
       image: "./images/problems/car-7.png",
     },
     {
       id: 7,
-      desc: `${t("gaining_popularity")}`,
-      position: `${t("for_charging_stations_owners")}`,
+      desc: `${ t("gaining_popularity") }`,
+      position: `${ t("for_charging_stations_owners") }`,
       image: "./images/problems/car-8.jpg",
     },
     {
       id: 8,
-      desc: `${t("no_extra_income")}`,
-      position: `${t("for_charging_stations_owners")}`,
+      desc: `${ t("no_extra_income") }`,
+      position: `${ t("for_charging_stations_owners") }`,
       image: "./images/problems/car-9.png",
     },
     {
       id: 9,
-      desc: `${t("parking_spaces_for_charging_electric_vehicles")}`,
-      position: `${t("for_charging_stations_owners")}`,
+      desc: `${ t("parking_spaces_for_charging_electric_vehicles") }`,
+      position: `${ t("for_charging_stations_owners") }`,
       image: "./images/problems/car-10.png",
     },
   ];
@@ -114,8 +114,8 @@ export const CaruselSection = ({}) => {
               sx={{ textAlign: "center" }}
               fontSize={{ xs: "35px", md: "52px" }}
             >
-              {/* Почему GreenGo */}
-              {t("why_greengo")}
+              {/* Почему PortfolioOfSukharevsky */}
+              {t("why_PortfolioOfSukharevsky")}
             </Typography>
             <Typography
               variant="subtitle2"
@@ -159,7 +159,7 @@ export const CaruselSection = ({}) => {
                     type: "fraction",
                   }}
                   navigation={true}
-                  modules={[Pagination, Navigation]}
+                  modules={[ Pagination, Navigation ]}
                   className="mySwiper"
                 >
                   {items.map((item, i, handleClickOpen) => (

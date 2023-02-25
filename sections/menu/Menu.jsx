@@ -1,51 +1,61 @@
-import {
-  Box,
-  Divider,
-  Drawer,
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import HomeIcon from "@mui/icons-material/Home";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import
+{
+  Box, Drawer,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
-  ListItemText,
+  ListItemText
 } from "@mui/material";
+
+import { useTranslation } from "next-i18next";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 import { useRouter } from "next/router";
-
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
-import HomeIcon from "@mui/icons-material/Home";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-// import { useTranslation } from "next-i18next";
-import { Avatar, Image } from "@mui/material";
 import styles from "../../styles/menu.module.css";
 
-export default function Menu(props) {
-  // const { t } = useTranslation("common");
+export default function Menu(props)
+{
+  const { t } = useTranslation("common");
   const { pathname } = useRouter(); //подсвечиваем акт ссылку
   const menuItems = [
     {
-      pageName: `homepage`,
+      pageName: `${ t("homepage") }`,
       link: "/",
     },
     {
-      pageName: `portfolio`,
+      pageName: `${ t("portfolio") }`,
       link: "/portfolio",
     },
     {
-      pageName: `articles`,
+      pageName: `${ t("articles") }`,
       link: "/articles",
     },
     {
-      pageName: `questions`,
+      pageName: `${ t("questions") }`,
       link: "/questions",
     },
-    {
-      pageName: `contacts`,
-      link: "/contacts",
-    },
+    // {
+    //   pageName: `contacts`,
+    //   link: "/contacts-old",
+    // },
   ];
   const label = { inputProps: { "aria-label": "Switch demo" } };
+
+  const router = useRouter();
+  const { locale } = router;
+
+  const handelLanguageToggle = (newLocale) =>
+  {
+    const { pathname, asPath, query } = router;
+    router.push({ pathname, query }, asPath, { locale: newLocale });
+  };
+
+  const changeTo = router.locale === "ru" ? "en" : "ru";
 
   return (
     <>
@@ -78,15 +88,15 @@ export default function Menu(props) {
                     }
                   >
                     {index === 0 ? (
-                      <HomeIcon />
-                    ) : index % 2 === 0 ? (
-                      <HelpOutlineIcon />
-                    ) : index % 3 === 0 ? (
-                      <MailIcon />
-                    ) : (
                       <>
-                        <ImportContactsIcon />
+                        <HomeIcon />
                       </>
+                    ) : index % 2 === 0 ? (
+                      <><NewspaperIcon /></>
+                    ) : index % 3 === 0 ? (
+                      <><HelpOutlineIcon /></>
+                    ) : (
+                      <><ImportContactsIcon /></>
                     )}
                   </ListItemIcon>
                   {/* <ListItemText primary={t(item.pageName)} /> */}
@@ -100,3 +110,8 @@ export default function Menu(props) {
     </>
   );
 }
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [ "common" ])),
+  },
+});

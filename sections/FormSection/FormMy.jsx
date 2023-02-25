@@ -1,30 +1,27 @@
-import * as React from "react";
-import {
-  Grid,
-  Typography,
+import
+{
   Button,
-  CircularProgress,
-  TextField,
-  Snackbar,
+  CircularProgress, Grid, Snackbar, TextField, Typography
 } from "@mui/material";
-import { Box, padding } from "@mui/system";
-import { Input } from "../../components/input/input";
-import { TextArea } from "../../components/textarea/textarea";
-import { useState } from "react";
+import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-// import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next";
+import * as React from "react";
+import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
+import * as Yup from "yup";
+import { TextArea } from "../../components/textarea/textarea";
 import style from "../../styles/FormSection.module.css";
 
-const FormMy = ({}) => {
-  // const { t } = useTranslation("common");
-  const [loader, setLoader] = React.useState(false);
-  const [checkForm, setCheckForm] = useState(true);
-  const [snakbar, setSnakbar] = useState(false);
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [errorPhoneNumber, setErrorPhoneNumber] = React.useState(false);
+const FormMy = ({ }) =>
+{
+  const { t } = useTranslation("common");
+  const [ loader, setLoader ] = React.useState(false);
+  const [ checkForm, setCheckForm ] = useState(true);
+  const [ snakbar, setSnakbar ] = useState(false);
+  const [ phoneNumber, setPhoneNumber ] = React.useState("");
+  const [ errorPhoneNumber, setErrorPhoneNumber ] = React.useState(false);
 
   const styles = {
     form: {
@@ -43,13 +40,14 @@ const FormMy = ({}) => {
       email: Yup.string().email("Must be a valid email").required("Required"),
       message: Yup.string().required("Required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values) =>
+    {
       setLoader(true);
       const data = {
         name: values.name,
         email: values.email,
         message: values.message,
-        phoneNumber: `+${phoneNumber}`,
+        phoneNumber: `+${ phoneNumber }`,
       };
       fetch("/api/contact", {
         method: "POST",
@@ -59,19 +57,24 @@ const FormMy = ({}) => {
         },
 
         body: JSON.stringify(data),
-      }).then((res) => {
-        if (res.status === 200) {
+      }).then((res) =>
+      {
+        if (res.status === 200)
+        {
           setLoader(false);
           setCheckForm(false);
           setSnakbar(true);
-        } else {
+        } else
+        {
           setLoader(false);
         }
       });
     },
   });
-  const handleErrPhoneNumber = () => {
-    if (phoneNumber) {
+  const handleErrPhoneNumber = () =>
+  {
+    if (phoneNumber)
+    {
       setErrorPhoneNumber(false);
     } else setErrorPhoneNumber(true);
   };
@@ -89,7 +92,7 @@ const FormMy = ({}) => {
             <Grid container spacing={2} marginBottom="30px">
               <Grid item xs={12} md={4}>
                 <Typography variant="colorGreen">
-                  subscription_form_input_one
+                  {t("subscription_form_input_one")}
                 </Typography>
                 <TextField
                   className={style.textField}
@@ -98,16 +101,16 @@ const FormMy = ({}) => {
                   id="name"
                   fullWidth
                   name="name"
-                  placeholder={"enter_your_name"}
-                  // error={formik.touched.name && Boolean(formik.errors.name)}
-                  // helpertext={formik.touched.name && formik.errors.name}
+                  placeholder={t("enter_your_name")}
+                // error={formik.touched.name && Boolean(formik.errors.name)}
+                // helpertext={formik.touched.name && formik.errors.name}
                 />
                 <Typography sx={{ color: "red" }}>
                   {formik.touched.name && formik.errors.name}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant="colorGreen">Email</Typography>
+                <Typography variant="colorGreen">{t("email")}</Typography>
                 <TextField
                   className={style.textField}
                   value={formik.values.email}
@@ -115,16 +118,16 @@ const FormMy = ({}) => {
                   id="email"
                   fullWidth
                   name="email"
-                  placeholder={"enter_your_email"}
-                  // error={formik.touched.email && Boolean(formik.errors.email)}
-                  // helpertext={formik.touched.email && formik.errors.email}
+                  placeholder={t("enter_your_email")}
+                // error={formik.touched.email && Boolean(formik.errors.email)}
+                // helpertext={formik.touched.email && formik.errors.email}
                 />
                 <Typography>
                   {formik.touched.email && formik.errors.email}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant="colorGreen">phone_number</Typography>
+                <Typography variant="colorGreen"> {t("phone_number")}</Typography>
                 <PhoneInput
                   // className={style.reactTelInput}
                   className={style.textField}
@@ -134,19 +137,19 @@ const FormMy = ({}) => {
                   name="phoneNumber"
                 />
                 {errorPhoneNumber && (
-                  <Typography sx={{ color: "red" }}>Required</Typography>
+                  <Typography sx={{ color: "red" }}>{t("required")}</Typography>
                 )}
               </Grid>
             </Grid>
             <Grid item md={12}>
               <label htmlFor="message">
-                <Typography variant="colorGreen">{"message"}</Typography>
+                <Typography variant="colorGreen">{t("message")}</Typography>
               </label>
               <TextArea
                 className={style.textArea}
                 value={formik.values.message}
                 onChange={formik.handleChange}
-                placeholder={"enter_your_message"}
+                placeholder={t("enter_your_message")}
                 minRows={6}
                 id="message"
                 name="message"
@@ -158,7 +161,8 @@ const FormMy = ({}) => {
               <Button
                 variant="contained"
                 disabled={loader ? true : false}
-                onClick={() => {
+                onClick={() =>
+                {
                   formik.handleSubmit();
                   handleErrPhoneNumber();
                 }}
@@ -169,7 +173,7 @@ const FormMy = ({}) => {
                 {loader ? (
                   <CircularProgress sx={{ color: "#fff" }} />
                 ) : (
-                  `submit`
+                  `${ t("submit") }`
                 )}
               </Button>
             </Grid>

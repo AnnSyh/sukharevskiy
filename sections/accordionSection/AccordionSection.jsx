@@ -1,20 +1,15 @@
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-import MailIcon from "@mui/icons-material/Mail";
-import PhoneIcon from "@mui/icons-material/Phone";
-import TelegramIcon from "@mui/icons-material/Telegram";
 
+import { useTranslation } from "next-i18next";
 import * as React from "react";
-// import { useTranslation } from "next-i18next";
 import { useState } from "react";
 
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import AddIcon from "@mui/icons-material/Add";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 
@@ -57,12 +52,14 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   backgroundColor: "#f5f5f5",
 }));
 
-const AccordionSection = ({}) => {
-  // const { t } = useTranslation("common");
+const AccordionSection = ({ }) =>
+{
+  const { t } = useTranslation("common");
 
-  const [expanded, setExpanded] = useState(false);
+  const [ expanded, setExpanded ] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (event, isExpanded) =>
+  {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -90,7 +87,7 @@ const AccordionSection = ({}) => {
   ];
 
   return (
-    <Box component="section" className="section">
+    <Box component="section" sx={{ width: '100%' }} className="section">
       <Box
         className="container-box"
         sx={{
@@ -102,7 +99,7 @@ const AccordionSection = ({}) => {
           component="div"
           sx={{ color: "#00b398" }}
         >
-          questions
+          {t("questions")}
         </Typography>
 
         <Grid
@@ -118,8 +115,8 @@ const AccordionSection = ({}) => {
               <Accordion
                 square
                 key={index}
-                expanded={expanded === `${item.id}`}
-                onChange={handleChange(`${item.id}`)}
+                expanded={expanded === `${ item.id }`}
+                onChange={handleChange(`${ item.id }`)}
               >
                 <AccordionSummary
                   expandIcon={

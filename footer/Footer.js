@@ -1,8 +1,9 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // import { useTranslation } from "next-i18next";
 import SoсialLinks from "../components/SoсialLinks";
 
-export const Footer = ({ sx }) => {
+export const Footer = ({ sx }) =>
+{
   // const { t } = useTranslation("common");
 
   return (
@@ -38,7 +39,7 @@ export const Footer = ({ sx }) => {
             align="center"
             sx={{ color: "#fff", paddingBottom: "0px" }}
           >
-            © 2022 GreenGo
+            © 2022 Sukharevsky II
           </Typography>
         </Box>
       </footer>
